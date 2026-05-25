@@ -1,0 +1,47 @@
+{
+    "doctype": "DocType",
+    "name": "Pet",
+    "module": "Pet Adoption Booking",
+    "custom": 0,
+    "is_submittable": 0,
+    "fields": [
+        {
+            "fieldname": "pet_name",
+            "label": "Pet Name",
+            "fieldtype": "Data",
+            "reqd": 1,
+            "in_list_view": 1
+        },
+        {
+            "fieldname": "breed",
+            "label": "Breed",
+            "fieldtype": "Data"
+        },
+        {
+            "fieldname": "age",
+            "label": "Age",
+            "fieldtype": "Int"
+        },
+        {
+            "fieldname": "status",
+            "label": "Status",
+            "fieldtype": "Select",
+            "options": "Available\nAdopted",
+            "default": "Available"
+        }
+    ],
+    "permissions": [
+        {
+            "role": "System Manager",
+            "read": 1,
+            "write": 1,
+            "create": 1,
+            "delete": 1,
+            "submit": 1,
+            "cancel": 1,
+            "print": 1,
+            "email": 1,
+            "share": 1
+        }
+    ]
+}

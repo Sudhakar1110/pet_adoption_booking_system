@@ -1,0 +1,6 @@
+app_name = "pet_adoption_booking"
+app_title = "Pet Adoption Booking"
+app_publisher = "Sudhakar"
+app_description = "Online Pet Adoption Booking Application"
+app_email = "sudhakar@gmail.com"
+app_license = "MIT"

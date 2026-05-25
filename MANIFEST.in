@@ -1,0 +1,10 @@
+include license.txt
+include README.md
+recursive-include pet_adoption_booking *.html
+recursive-include pet_adoption_booking *.txt
+recursive-include pet_adoption_booking *.js
+recursive-include pet_adoption_booking *.css
+recursive-include pet_adoption_booking *.json
+recursive-include pet_adoption_booking *.png
+recursive-include pet_adoption_booking *.jpg
+recursive-include pet_adoption_booking *.svg
