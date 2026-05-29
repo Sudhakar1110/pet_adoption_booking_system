@@ -1,1 +1,1 @@
-# DocTypes for Pet Adoption Booking
+# DocTypes for Pet Adoption

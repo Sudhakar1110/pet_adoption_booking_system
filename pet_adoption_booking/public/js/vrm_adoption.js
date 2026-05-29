@@ -1,4 +1,4 @@
-// Pet Adoption Booking - Client-side Utilities for ERPNext v15
+// Pet Adoption - Client-side Utilities for ERPNext v15
 frappe.provide("vrm_adoption");
 
 vrm_adoption.utils = {

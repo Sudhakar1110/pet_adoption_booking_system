@@ -8,7 +8,7 @@ with open(os.path.join(os.path.dirname(__file__), "requirements.txt")) as f:
 setup(
     name="pet_adoption_booking",
     version="0.0.1",
-    description="Frappe + ERPNext v15 based Pet Adoption Booking Application",
+    description="Frappe + ERPNext v15 based Pet Adoption Application",
     author="Sudhakar",
     author_email="sudhakar@gmail.com",
     license="MIT",

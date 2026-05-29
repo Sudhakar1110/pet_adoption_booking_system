@@ -1,6 +1,6 @@
-# Pet Adoption Booking System
+# Pet Adoption System
 
-Frappe + ERPNext v15 based Pet Adoption Booking Application.
+Frappe + ERPNext v15 based Pet Adoption Application.
 
 ## Features
 - Pet Listing

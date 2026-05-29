@@ -1,9 +1,9 @@
 import frappe
 
 app_name = "pet_adoption_booking"
-app_title = "Pet Adoption Booking"
+app_title = "Pet Adoption"
 app_publisher = "Sudhakar"
-app_description = "Online Pet Adoption Booking Application for ERPNext v15"
+app_description = "Online Pet Adoption Application for ERPNext v15"
 app_email = "sudhakar@gmail.com"
 app_license = "MIT"
 app_version = "0.0.1"

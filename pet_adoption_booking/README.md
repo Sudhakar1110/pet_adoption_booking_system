@@ -1,6 +1,6 @@
-# Pet Adoption Booking System
+# Pet Adoption System
 
-A comprehensive Pet Adoption Booking Application built for **ERPNext v15** and **Frappe Framework v15**.
+A comprehensive Pet Adoption Application built for **ERPNext v15** and **Frappe Framework v15**.
 
 ## Features
 
@@ -25,7 +25,6 @@ A comprehensive Pet Adoption Booking Application built for **ERPNext v15** and *
 
 ### 🌐 Website Features
 - **Pets Catalog** (`/pets`) - Browse available pets with search, filter by category/gender
-- **Book Adoption** (`/book-adoption`) - Schedule adoption meetings
 - Responsive design for mobile and desktop
 - Beautiful, modern UI with smooth animations
 
@@ -57,7 +56,7 @@ bench build
 4. Receive booking confirmation
 
 ### For Admins
-1. Navigate to the **Pet Adoption Booking** module
+1. Navigate to the **Pet Adoption** module
 2. Manage pets, categories, breeds, and adopters
 3. Configure settings under **Adoption Settings**
 4. Approve/reject bookings and manage status

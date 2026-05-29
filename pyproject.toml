@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "pet_adoption_booking"
 version = "0.0.1"
-description = "Frappe + ERPNext v15 based Pet Adoption Booking Application"
+description = "Frappe + ERPNext v15 based Pet Adoption Application"
 authors = [
     {name = "Sudhakar", email = "sudhakar@gmail.com"}
 ]
