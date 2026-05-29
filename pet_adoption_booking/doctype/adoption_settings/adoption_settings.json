@@ -1,0 +1,83 @@
+{
+  "actions": [],
+  "creation": "2024-01-01 00:00:00.000000",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": [
+    "sec_general",
+    "center_name",
+    "cb1",
+    "default_adoption_fee",
+    "default_tax_rate",
+    "sec_fees",
+    "fee_item_code",
+    "sec_terms",
+    "terms_and_conditions"
+  ],
+  "fields": [
+    {
+      "fieldname": "sec_general",
+      "fieldtype": "Section Break",
+      "label": "General"
+    },
+    {
+      "default": "Happy Tails Adoption Center",
+      "fieldname": "center_name",
+      "fieldtype": "Data",
+      "label": "Center Name"
+    },
+    {
+      "fieldname": "cb1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "default": "50",
+      "fieldname": "default_adoption_fee",
+      "fieldtype": "Currency",
+      "label": "Default Adoption Fee"
+    },
+    {
+      "default": "0",
+      "fieldname": "default_tax_rate",
+      "fieldtype": "Percent",
+      "label": "Default Tax Rate (%)"
+    },
+    {
+      "fieldname": "sec_fees",
+      "fieldtype": "Section Break",
+      "label": "Adoption Fees Invoicing"
+    },
+    {
+      "fieldname": "fee_item_code",
+      "fieldtype": "Link",
+      "label": "Adoption Service Item",
+      "options": "Item"
+    },
+    {
+      "fieldname": "sec_terms",
+      "fieldtype": "Section Break",
+      "label": "Terms & Conditions"
+    },
+    {
+      "fieldname": "terms_and_conditions",
+      "fieldtype": "Text Editor",
+      "label": "Default Adoption Terms"
+    }
+  ],
+  "issingle": 1,
+  "links": [],
+  "modified": "2024-01-01 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Pet Adoption Booking",
+  "name": "Adoption Settings",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "read": 1,
+      "role": "System Manager",
+      "write": 1
+    }
+  ],
+  "sort_field": "creation",
+  "sort_order": "DESC"
+}

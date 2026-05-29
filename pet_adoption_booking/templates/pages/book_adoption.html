@@ -1,0 +1,269 @@
+{% extends "templates/web.html" %}
+{% block title %}Book an Adoption Meeting{% endblock %}
+
+{% block page_content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+      
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/pets" class="text-decoration-none"><i class="fa fa-paw me-1"></i>Available Pets</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Book Adoption Visit</li>
+        </ol>
+      </nav>
+
+      <div class="card shadow-lg border-0 rounded-4 overflow-hidden mb-5">
+        
+        <!-- Header -->
+        <div class="vrm-hero-gradient p-4 text-white text-center">
+          <h2 class="mb-1 fw-bold text-white">
+            {% if pet %}Meet {{ pet.pet_name }}{% else %}Book an Adoption Visit{% endif %}
+          </h2>
+          <p class="mb-0 text-white-50">Reserve a time slot to meet your potential companion</p>
+        </div>
+        
+        <!-- Form Body -->
+        <div class="card-body p-4 p-md-5">
+          <div class="adoption-booking-section">
+            <form id="booking-form">
+              
+              <!-- Section 1: Adopter Information -->
+              <div class="vrm-form-section mb-4">
+                <h5 class="fw-bold mb-3 text-dark">
+                  <span class="vrm-step-badge">1</span> Adopter Profile Information
+                </h5>
+                
+                {% if user_logged_in %}
+                <div class="alert alert-light border d-flex align-items-center mb-3 rounded-3 p-3">
+                  <div class="me-3 fs-3 text-primary">
+                    <i class="fa fa-user-circle"></i>
+                  </div>
+                  <div>
+                    <small class="text-muted d-block">Logged In Profile</small>
+                    <strong>{{ adopter_name }}</strong> <span class="text-muted">({{ user_email }})</span>
+                  </div>
+                </div>
+                {% endif %}
+
+                <div class="row">
+                  {% if not user_logged_in %}
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Your Full Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="adopter_name" required placeholder="e.g. John Doe">
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Email Address <span class="text-danger">*</span></label>
+                    <input type="email" class="form-control" name="email" required placeholder="e.g. john@example.com">
+                  </div>
+                  {% endif %}
+                  
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Phone Number</label>
+                    <input type="tel" class="form-control" name="phone" value="{{ adopter_phone }}" placeholder="e.g. +1 555 123 4567">
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Housing Environment</label>
+                    <select class="form-select" name="housing_type">
+                      <option value="Apartment" {% if housing_type == "Apartment" %}selected{% endif %}>Apartment</option>
+                      <option value="House with Yard" {% if housing_type == "House with Yard" %}selected{% endif %}>House with Yard</option>
+                      <option value="House without Yard" {% if housing_type == "House without Yard" %}selected{% endif %}>House without Yard</option>
+                    </select>
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label fw-semibold">Residential Address</label>
+                    <textarea class="form-control" name="address" rows="2" placeholder="Where will your pet be living?">{{ adopter_address }}</textarea>
+                  </div>
+                  
+                  <div class="col-md-6 mt-2">
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" name="has_children" value="1" id="has_children" {% if has_children %}checked{% endif %}>
+                      <label class="form-check-label fw-semibold" for="has_children">I have children in my household</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mt-2">
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" name="has_other_pets" value="1" id="has_other_pets" {% if has_other_pets %}checked{% endif %}>
+                      <label class="form-check-label fw-semibold" for="has_other_pets">I have other pets in my household</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section 2: Meeting Schedule -->
+              <div class="vrm-form-section mb-4">
+                <h5 class="fw-bold mb-3 text-dark">
+                  <span class="vrm-step-badge">2</span> Schedule Meeting Details
+                </h5>
+                
+                <div class="row">
+                  <!-- Pet Selection -->
+                  <div class="col-12 mb-3">
+                    {% if pet %}
+                    <input type="hidden" name="pet" value="{{ pet.name }}">
+                    <div class="card border-0 shadow-sm rounded-3 bg-light">
+                      <div class="card-body d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <div>
+                          <small class="text-muted d-block">Selected Pet</small>
+                          <strong class="fs-5 text-dark">{{ pet.pet_name }}</strong>
+                          <span class="badge bg-primary text-white ms-2 rounded-pill">{{ pet.breed }}</span>
+                        </div>
+                        <div class="text-md-end">
+                          <span class="fs-6 fw-bold text-primary">{{ frappe.utils.fmt_money(pet.adoption_fee) }}</span>
+                          <small class="text-muted d-block">Adoption fee</small>
+                        </div>
+                      </div>
+                    </div>
+                    {% else %}
+                    <label class="form-label fw-semibold">Choose a Pet <span class="text-danger">*</span></label>
+                    <select class="form-select py-2" name="pet" required>
+                      <option value="">-- Choose a Pet to Meet --</option>
+                      {% for p in pets %}
+                      <option value="{{ p.name }}">{{ p.pet_name }} ({{ p.breed }})</option>
+                      {% endfor %}
+                    </select>
+                    {% endif %}
+                  </div>
+                  
+                  <!-- Date & Slot -->
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Meeting Date <span class="text-danger">*</span></label>
+                    <input type="date" class="form-control" name="booking_date" required id="booking_date">
+                  </div>
+                  
+                  <div class="col-md-6 mb-3">
+                    <label class="form-label fw-semibold">Time Slot <span class="text-danger">*</span></label>
+                    <select class="form-select" name="time_slot" required>
+                      <option value="">-- Choose a Time Slot --</option>
+                      <option value="09:00 AM - 10:00 AM">09:00 AM - 10:00 AM</option>
+                      <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+                      <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+                      <option value="02:00 PM - 03:00 PM">02:00 PM - 03:00 PM</option>
+                      <option value="03:00 PM - 04:00 PM">03:00 PM - 04:00 PM</option>
+                      <option value="04:00 PM - 05:00 PM">04:00 PM - 05:00 PM</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Notes -->
+              <div class="mb-4">
+                <label class="form-label fw-semibold">Why do you want to adopt this pet? (Optional)</label>
+                <textarea class="form-control" name="notes" rows="3" placeholder="Tell us about yourself, your home environment, and why you'd be a great match for this pet..."></textarea>
+              </div>
+
+              <!-- Submit -->
+              <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-adopt-cta btn-lg py-3 fw-bold">
+                  <i class="fa fa-heart me-2"></i>Schedule Meeting
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const bookingForm = document.getElementById('booking-form');
+    if (!bookingForm) return;
+
+    const dateInput = document.getElementById('booking_date');
+    if (dateInput) {
+        const todayStr = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', todayStr);
+        dateInput.value = todayStr;
+    }
+
+    bookingForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const form = this;
+        const btn = form.querySelector('button[type="submit"]');
+        const originalText = btn.innerHTML;
+        
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span>Reserving Slot...';
+        
+        const formData = new FormData(form);
+        const data = {};
+        
+        formData.forEach((value, key) => {
+            if (key !== 'has_children' && key !== 'has_other_pets') {
+                data[key] = value;
+            }
+        });
+        
+        data['has_children'] = form.querySelector('input[name="has_children"]').checked ? 1 : 0;
+        data['has_other_pets'] = form.querySelector('input[name="has_other_pets"]').checked ? 1 : 0;
+
+        frappe.call({
+            method: "pet_adoption_booking.api.create_adoption_booking",
+            args: data,
+            callback: function(r) {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+                
+                if (r.message && r.message.status === 'success') {
+                    const section = document.querySelector('.adoption-booking-section');
+                    section.style.animation = "fadeOut 0.4s forwards";
+                    setTimeout(() => {
+                        section.innerHTML = `
+                            <div class="text-center py-5" style="animation: fadeIn 0.4s forwards;">
+                                <div class="mb-4">
+                                    <span class="display-1 text-success" style="font-size: 5rem; color: var(--secondary) !important;"><i class="fa fa-check-circle"></i></span>
+                                </div>
+                                <h3 class="fw-bold text-success" style="color: var(--secondary) !important;">Meeting Scheduled!</h3>
+                                <p class="lead text-muted mt-3">
+                                    Your adoption booking reference is <strong class="text-dark">${r.message.booking_name}</strong>.
+                                </p>
+                                <p class="text-muted mt-2">
+                                    We have reserved your selected meeting slot. A confirmation has been sent with center details.
+                                </p>
+                                <div class="mt-4">
+                                    <a href="/pets" class="btn btn-primary px-5 py-2 fw-semibold rounded-pill">Explore More Pets</a>
+                                </div>
+                            </div>
+                        `;
+                    }, 400);
+
+                    setTimeout(() => {
+                        window.location.href = '/pets';
+                    }, 4500);
+                } else {
+                    frappe.msgprint({
+                        title: __('Booking Failed'),
+                        indicator: 'red',
+                        message: __(r.message ? r.message.message : 'Something went wrong. Please try again.')
+                    });
+                }
+            },
+            error: function() {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+                frappe.msgprint({
+                    title: __('Network Error'),
+                    indicator: 'red',
+                    message: __('Unable to connect to server. Please try again.')
+                });
+            }
+        });
+    });
+});
+</script>
+
+<style>
+@keyframes fadeOut {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.95); }
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+</style>
+{% endblock %}

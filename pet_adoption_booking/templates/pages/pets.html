@@ -1,0 +1,371 @@
+{% extends "templates/web.html" %}
+{% block title %}Browse Available Pets - {{ center_name }}{% endblock %}
+
+{% block page_content %}
+<!-- ===== HERO SECTION ===== -->
+<section class="vrm-hero-section text-white text-center py-5 mb-5">
+  <div class="container py-5">
+    <span class="badge bg-white text-primary px-3 py-2 rounded-pill mb-3 fs-6 shadow-sm">
+      <i class="fa fa-heart text-danger me-1"></i> Adopt, Don't Shop
+    </span>
+    <h1 class="display-3 fw-bold mb-3 animate-fade-in">Find Your Forever Friend</h1>
+    <p class="lead fs-5 mb-4 max-width-600 mx-auto opacity-90">
+      Every pet deserves a loving home. Browse our adorable animals waiting for their second chance at happiness.
+    </p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+      <a href="#pet-catalog" class="btn btn-light btn-lg px-5 fw-bold shadow rounded-pill">
+        <i class="fa fa-search me-2"></i>Browse Pets
+      </a>
+      <a href="/book-adoption" class="btn btn-outline-light btn-lg px-5 fw-bold rounded-pill">
+        <i class="fa fa-calendar-plus me-2"></i>Schedule a Visit
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section class="py-5 bg-white rounded-4 shadow-sm mb-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="badge bg-primary-light text-primary px-3 py-2 rounded-pill mb-2 fw-semibold">Simple Process</span>
+      <h2 class="display-6 fw-bold text-dark">How Adoption Works</h2>
+      <p class="text-muted max-width-500 mx-auto">Finding your new best friend is easy with our three-step process</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="text-center p-4">
+          <div class="vrm-step-icon mx-auto mb-3"><span class="vrm-step-number">1</span><i class="fa fa-search"></i></div>
+          <h4 class="fw-bold text-dark">Search</h4>
+          <p class="text-muted small">Browse through our available pets, filter by category, gender, or search by name and breed to find your perfect match.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="text-center p-4">
+          <div class="vrm-step-icon mx-auto mb-3"><span class="vrm-step-number">2</span><i class="fa fa-handshake-o"></i></div>
+          <h4 class="fw-bold text-dark">Meet</h4>
+          <p class="text-muted small">Schedule a no-obligation visit to meet your potential companion in person at our center. Spend time bonding and getting to know each other.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="text-center p-4">
+          <div class="vrm-step-icon mx-auto mb-3"><span class="vrm-step-number">3</span><i class="fa fa-heart"></i></div>
+          <h4 class="fw-bold text-dark">Adopt</h4>
+          <p class="text-muted small">Complete the adoption paperwork and take your new family member home. We provide post-adoption support to ensure a smooth transition.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CATALOG HEADER ===== -->
+<section id="pet-catalog">
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+    <div>
+      <h2 class="fw-bold text-dark mb-1">
+        <i class="fa fa-paw text-primary me-2"></i>Available Pets
+      </h2>
+      <p class="text-muted mb-0">{{ pets|length }} {% if pets|length == 1 %}pet{% else %}pets{% endif %} waiting for a home</p>
+    </div>
+    {% if not pets %}
+    <div class="text-muted small">
+      <i class="fa fa-info-circle me-1"></i>Check back soon — new pets arrive regularly!
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Filter & Search Controls -->
+  <div class="row g-3 mb-5 justify-content-between align-items-center bg-white p-3 rounded-4 shadow-sm border">
+    <div class="col-md-4">
+      <div class="input-group">
+        <span class="input-group-text bg-transparent border-end-0 text-muted"><i class="fa fa-search"></i></span>
+        <input type="text" class="form-control border-start-0 ps-0" id="search-input" placeholder="Search by name, breed, or color...">
+      </div>
+    </div>
+    <div class="col-md-2">
+      <select class="form-select py-2" id="gender-filter">
+        <option value="">All Genders</option>
+        <option value="Male"><i class="fa fa-mars"></i> Male</option>
+        <option value="Female"><i class="fa fa-venus"></i> Female</option>
+      </select>
+    </div>
+    <div class="col-md-6 d-flex flex-wrap gap-2 justify-content-md-end">
+      <button class="btn btn-category-filter active vrm-filter-btn" data-cat="">All Animals</button>
+      {% for cat in categories %}
+      <button class="btn btn-category-filter vrm-filter-btn" data-cat="{{ cat.name }}">
+        {% if cat.image %}<img src="{{ cat.image }}" alt="" style="width: 20px; height: 20px; border-radius: 50%; object-fit: cover; margin-right: 6px;">{% endif %}
+        {{ cat.category_name }}
+      </button>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Pets Catalog Grid -->
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="pet-grid">
+    {% for pet in pets %}
+    <div class="col vrm-pet-item" data-cat="{{ pet.category }}" data-gender="{{ pet.gender }}"
+         data-name="{{ pet.pet_name }}" data-breed="{{ pet.breed }}" data-color="{{ pet.color }}">
+      <div class="card h-100 pet-card position-relative">
+        
+        <!-- Status Badge -->
+        <span class="status-badge status-available"><i class="fa fa-check-circle me-1"></i>Available</span>
+        
+        <!-- Image -->
+        {% if pet.image %}
+        <img src="{{ pet.image }}" class="card-img-top pet-card-img" alt="{{ pet.pet_name }}">
+        {% else %}
+        <div class="card-img-top bg-gradient d-flex flex-column align-items-center justify-content-center" style="height: 240px; background: linear-gradient(135deg, hsl(26, 90%, 93%), hsl(174, 75%, 90%));">
+          <div class="pet-placeholder-icon"><i class="fa fa-paw"></i></div>
+          <span class="text-muted small fw-semibold mt-2">No photo available</span>
+        </div>
+        {% endif %}
+        
+        <!-- Quick Actions Overlay -->
+        <div class="pet-card-actions">
+          <a href="/book-adoption?pet={{ pet.name }}" class="btn btn-sm btn-light rounded-circle shadow-sm me-2" title="Book a Visit">
+            <i class="fa fa-calendar-plus text-primary"></i>
+          </a>
+        </div>
+        
+        <!-- Card Body -->
+        <div class="card-body d-flex flex-column p-4">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <div>
+              <h3 class="card-title h4 fw-bold mb-0 text-dark">{{ pet.pet_name }}</h3>
+              <div class="d-flex align-items-center gap-2 mt-1">
+                <span class="text-muted small fw-semibold">{{ pet.breed }}</span>
+                <span class="text-muted small">•</span>
+                <span class="text-muted small">{{ pet.category }}</span>
+              </div>
+            </div>
+            {% if pet.gender %}
+            <span class="pet-gender">
+              <i class="fa {% if pet.gender == 'Male' %}fa-mars text-info{% elif pet.gender == 'Female' %}fa-venus text-danger{% else %}fa-question{% endif %} me-1"></i>
+              {{ pet.gender }}
+            </span>
+            {% endif %}
+          </div>
+          
+          <!-- Attributes Grid -->
+          <div class="row g-2 my-3 text-muted small border-top border-bottom py-3">
+            <div class="col-6">
+              <span class="vrm-attribute-icon"><i class="fa fa-birthday-cake"></i></span>
+              <strong>Age:</strong> {{ pet.age }} {{ pet.age_unit }}
+            </div>
+            {% if pet.size %}
+            <div class="col-6">
+              <span class="vrm-attribute-icon"><i class="fa fa-arrows-alt"></i></span>
+              <strong>Size:</strong> {{ pet.size }}
+            </div>
+            {% endif %}
+            {% if pet.color %}
+            <div class="col-6">
+              <span class="vrm-attribute-icon"><i class="fa fa-tint"></i></span>
+              <strong>Color:</strong> {{ pet.color }}
+            </div>
+            {% endif %}
+            <div class="col-6">
+              <span class="vrm-attribute-icon"><i class="fa fa-tag"></i></span>
+              <strong>Fee:</strong> {% if pet.adoption_fee %}{{ frappe.utils.fmt_money(pet.adoption_fee) }}{% else %}<span class="text-success">Free</span>{% endif %}
+            </div>
+          </div>
+
+          <!-- Bio Preview -->
+          {% if pet.description %}
+          <p class="card-text text-muted small flex-grow-1 line-clamp-3 mb-4">
+            <i class="fa fa-quote-left text-primary-light me-1"></i>
+            {{ pet.description | striptags }}
+          </p>
+          {% else %}
+          <p class="card-text text-muted small flex-grow-1 fst-italic mb-4">
+            <i class="fa fa-quote-left text-primary-light me-1"></i>
+            No description provided. Come visit me at our center to learn more about my story!
+          </p>
+          {% endif %}
+          
+          <!-- CTA Button -->
+          <div class="d-grid mt-auto">
+            <a href="/book-adoption?pet={{ pet.name }}" class="btn btn-adopt-cta py-2 fw-bold">
+              <i class="fa fa-calendar-plus-o me-2"></i>Book Adoption Visit
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Empty State -->
+  <div class="text-center py-5 d-none" id="empty-state">
+    <div class="mb-3 display-1 text-muted">
+      <i class="fa fa-paw"></i>
+    </div>
+    <h3 class="fw-semibold text-dark">No Available Pets Found</h3>
+    <p class="text-muted max-width-400 mx-auto">We couldn't find any pets matching your criteria. Try adjusting your search or filters.</p>
+    <button class="btn btn-primary px-4 py-2 rounded-pill mt-3" id="reset-filters-btn">
+      <i class="fa fa-refresh me-2"></i>Reset Filters
+    </button>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="py-5 mt-5">
+  <div class="text-center mb-5">
+    <span class="badge bg-primary-light text-primary px-3 py-2 rounded-pill mb-2 fw-semibold">Happy Tails</span>
+    <h2 class="display-6 fw-bold text-dark">What Our Adopters Say</h2>
+    <p class="text-muted max-width-500 mx-auto">Real stories from families who found their perfect companion</p>
+  </div>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
+        <div class="d-flex align-items-center mb-3">
+          <div class="rounded-circle bg-primary-light d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+            <i class="fa fa-user text-primary fs-5"></i>
+          </div>
+          <div>
+            <h6 class="fw-bold mb-0">Sarah & Max</h6>
+            <small class="text-muted">Adopted Bella, 2 yrs</small>
+          </div>
+        </div>
+        <p class="text-muted small mb-0"><i class="fa fa-quote-left text-primary-light me-1"></i>The process was so smooth and the staff was incredibly helpful. Bella has brought so much joy to our home. Thank you for reuniting us with our furry soulmate!</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
+        <div class="d-flex align-items-center mb-3">
+          <div class="rounded-circle bg-primary-light d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+            <i class="fa fa-user text-primary fs-5"></i>
+          </div>
+          <div>
+            <h6 class="fw-bold mb-0">The Johnson Family</h6>
+            <small class="text-muted">Adopted Rocky, 1 yr</small>
+          </div>
+        </div>
+        <p class="text-muted small mb-0"><i class="fa fa-quote-left text-primary-light me-1"></i>We were nervous about adopting, but the team guided us every step of the way. Rocky is now part of our family and our kids absolutely adore him!</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm rounded-4 p-4 h-100 bg-white">
+        <div class="d-flex align-items-center mb-3">
+          <div class="rounded-circle bg-primary-light d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+            <i class="fa fa-user text-primary fs-5"></i>
+          </div>
+          <div>
+            <h6 class="fw-bold mb-0">Priya K.</h6>
+            <small class="text-muted">Adopted Simba, 3 yrs</small>
+          </div>
+        </div>
+        <p class="text-muted small mb-0"><i class="fa fa-quote-left text-primary-light me-1"></i>Adopting Simba was the best decision I ever made. The adoption center provided excellent post-adoption support and resources. I highly recommend this service!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STATS BANNER ===== -->
+<section class="vrm-stats-banner rounded-4 p-5 my-5 text-white text-center">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-3 col-6">
+        <div class="display-4 fw-bold">{{ pets|length }}+</div>
+        <p class="mb-0 opacity-75">Available Pets</p>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="display-4 fw-bold">150+</div>
+        <p class="mb-0 opacity-75">Happy Adoptions</p>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="display-4 fw-bold">5+</div>
+        <p class="mb-0 opacity-75">Years of Service</p>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="display-4 fw-bold">98%</div>
+        <p class="mb-0 opacity-75">Satisfaction Rate</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FILTERING SCRIPT ===== -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const searchInput = document.getElementById('search-input');
+    const genderFilter = document.getElementById('gender-filter');
+    const filterButtons = document.querySelectorAll('.vrm-filter-btn');
+    const petItems = document.querySelectorAll('.vrm-pet-item');
+    const emptyState = document.getElementById('empty-state');
+    const resetBtn = document.getElementById('reset-filters-btn');
+    
+    let activeCategory = '';
+
+    function applyFilters() {
+        const query = searchInput.value.toLowerCase().trim();
+        const selectedGender = genderFilter.value;
+        let visibleCount = 0;
+
+        petItems.forEach(item => {
+            const cat = item.dataset.cat;
+            const gender = item.dataset.gender;
+            const name = item.dataset.name.toLowerCase();
+            const breed = item.dataset.breed.toLowerCase();
+            const color = (item.dataset.color || '').toLowerCase();
+
+            const matchesCategory = !activeCategory || cat === activeCategory;
+            const matchesGender = !selectedGender || gender === selectedGender;
+            const matchesSearch = !query || name.includes(query) || breed.includes(query) || color.includes(query);
+
+            if (matchesCategory && matchesGender && matchesSearch) {
+                item.style.display = '';
+                item.style.animation = 'fadeInUp 0.3s ease forwards';
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        emptyState.classList.toggle('d-none', visibleCount > 0);
+    }
+
+    searchInput.addEventListener('input', applyFilters);
+    genderFilter.addEventListener('change', applyFilters);
+
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            filterButtons.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            activeCategory = this.dataset.cat;
+            applyFilters();
+        });
+    });
+
+    if (resetBtn) {
+        resetBtn.addEventListener('click', function() {
+            searchInput.value = '';
+            genderFilter.value = '';
+            filterButtons.forEach(b => b.classList.remove('active'));
+            document.querySelector('.vrm-filter-btn[data-cat=""]')?.classList.add('active');
+            activeCategory = '';
+            applyFilters();
+        });
+    }
+
+    // Initialize
+    applyFilters();
+});
+</script>
+
+<style>
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.max-width-600 { max-width: 600px; }
+.max-width-500 { max-width: 500px; }
+.max-width-400 { max-width: 400px; }
+.opacity-90 { opacity: 0.9; }
+</style>
+{% endblock %}

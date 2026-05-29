@@ -1,0 +1,135 @@
+{
+  "actions": [],
+  "autoname": "naming_series:",
+  "creation": "2024-01-01 00:00:00.000000",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": [
+    "naming_series",
+    "adopter",
+    "pet",
+    "cb1",
+    "booking_date",
+    "time_slot",
+    "sec_status",
+    "status",
+    "sales_invoice",
+    "cb2",
+    "notes",
+    "amended_from"
+  ],
+  "fields": [
+    {
+      "default": "PAB-.YYYY.-.#####",
+      "fieldname": "naming_series",
+      "fieldtype": "Select",
+      "label": "Series",
+      "options": "PAB-.YYYY.-.#####"
+    },
+    {
+      "fieldname": "adopter",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "label": "Adopter",
+      "options": "Adopter",
+      "reqd": 1
+    },
+    {
+      "fieldname": "pet",
+      "fieldtype": "Link",
+      "in_list_view": 1,
+      "label": "Pet",
+      "options": "Pet",
+      "reqd": 1
+    },
+    {
+      "fieldname": "cb1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "booking_date",
+      "fieldtype": "Date",
+      "in_list_view": 1,
+      "label": "Booking Date",
+      "reqd": 1
+    },
+    {
+      "fieldname": "time_slot",
+      "fieldtype": "Select",
+      "in_list_view": 1,
+      "label": "Time Slot",
+      "options": "09:00 AM - 10:00 AM\n10:00 AM - 11:00 AM\n11:00 AM - 12:00 PM\n02:00 PM - 03:00 PM\n03:00 PM - 04:00 PM\n04:00 PM - 05:00 PM",
+      "reqd": 1
+    },
+    {
+      "fieldname": "sec_status",
+      "fieldtype": "Section Break",
+      "label": "Status & Accounting"
+    },
+    {
+      "default": "Draft",
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "label": "Status",
+      "options": "Draft\nScheduled\nCompleted\nCancelled\nRejected"
+    },
+    {
+      "fieldname": "sales_invoice",
+      "fieldtype": "Link",
+      "label": "Sales Invoice",
+      "options": "Sales Invoice",
+      "read_only": 1
+    },
+    {
+      "fieldname": "cb2",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Special Notes"
+    },
+    {
+      "fieldname": "amended_from",
+      "fieldtype": "Link",
+      "label": "Amended From",
+      "no_copy": 1,
+      "options": "Adoption Booking",
+      "print_hide": 1,
+      "read_only": 1
+    }
+  ],
+  "index_web_pages_for_search": 1,
+  "is_submittable": 1,
+  "links": [],
+  "modified": "2024-01-01 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Pet Adoption Booking",
+  "name": "Adoption Booking",
+  "naming_rule": "By \"Naming Series\" field",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "cancel": 1,
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "read": 1,
+      "role": "System Manager",
+      "submit": 1,
+      "write": 1
+    },
+    {
+      "create": 1,
+      "read": 1,
+      "role": "Guest",
+      "write": 1
+    }
+  ],
+  "sort_field": "creation",
+  "sort_order": "DESC",
+  "title_field": "name",
+  "track_changes": 1
+}

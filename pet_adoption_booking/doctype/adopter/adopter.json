@@ -1,0 +1,97 @@
+{
+  "actions": [],
+  "autoname": "field:email",
+  "creation": "2024-01-01 00:00:00.000000",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": [
+    "adopter_name",
+    "email",
+    "phone",
+    "address",
+    "cb1",
+    "housing_type",
+    "has_children",
+    "has_other_pets"
+  ],
+  "fields": [
+    {
+      "fieldname": "adopter_name",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Full Name",
+      "reqd": 1
+    },
+    {
+      "fieldname": "email",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Email Address",
+      "options": "Email",
+      "reqd": 1,
+      "unique": 1
+    },
+    {
+      "fieldname": "phone",
+      "fieldtype": "Data",
+      "in_list_view": 1,
+      "label": "Phone Number",
+      "options": "Phone"
+    },
+    {
+      "fieldname": "address",
+      "fieldtype": "Small Text",
+      "label": "Residential Address"
+    },
+    {
+      "fieldname": "cb1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "default": "Apartment",
+      "fieldname": "housing_type",
+      "fieldtype": "Select",
+      "label": "Housing Type",
+      "options": "Apartment\nHouse with Yard\nHouse without Yard"
+    },
+    {
+      "default": "0",
+      "fieldname": "has_children",
+      "fieldtype": "Check",
+      "label": "Has Children"
+    },
+    {
+      "default": "0",
+      "fieldname": "has_other_pets",
+      "fieldtype": "Check",
+      "label": "Has Other Pets"
+    }
+  ],
+  "index_web_pages_for_search": 1,
+  "links": [],
+  "modified": "2024-01-01 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Pet Adoption Booking",
+  "name": "Adopter",
+  "naming_rule": "By fieldname",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "create": 1,
+      "delete": 1,
+      "export": 1,
+      "read": 1,
+      "role": "System Manager",
+      "write": 1
+    },
+    {
+      "create": 1,
+      "read": 1,
+      "role": "Guest",
+      "write": 1
+    }
+  ],
+  "sort_field": "creation",
+  "sort_order": "DESC",
+  "title_field": "adopter_name"
+}

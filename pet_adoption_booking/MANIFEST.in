@@ -1,0 +1,8 @@
+recursive-include pet_adoption_booking/public *
+recursive-include pet_adoption_booking/templates *
+recursive-include pet_adoption_booking/doctype *
+recursive-include pet_adoption_booking/www *
+include pet_adoption_booking/hooks.py
+include pet_adoption_booking/patches.txt
+include pet_adoption_booking/modules.txt
+include pet_adoption_booking/__init__.py
