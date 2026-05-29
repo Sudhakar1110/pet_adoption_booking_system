@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: pet_adoption_booking
+Version: 0.0.1
+Summary: Frappe + ERPNext v15 based Pet Adoption Booking Application
+Author-email: Sudhakar <sudhakar@gmail.com>
+License: MIT
+Requires-Python: >=3.10
+Requires-Dist: frappe
+Requires-Dist: erpnext
