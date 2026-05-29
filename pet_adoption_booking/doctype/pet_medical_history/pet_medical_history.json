@@ -1,0 +1,89 @@
+{
+ "actions": [],
+ "autoname": "format:MED-{YYYY}-{#####}",
+ "creation": "2024-01-01 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "condition",
+  "diagnosis",
+  "treatment",
+  "section_break_vet",
+  "veterinarian",
+  "vet_contact",
+  "section_break_notes",
+  "notes",
+  "attachment"
+ ],
+ "fields": [
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "condition",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Condition / Diagnosis",
+   "reqd": 1
+  },
+  {
+   "fieldname": "diagnosis",
+   "fieldtype": "Small Text",
+   "label": "Detailed Diagnosis"
+  },
+  {
+   "fieldname": "treatment",
+   "fieldtype": "Small Text",
+   "label": "Treatment Given"
+  },
+  {
+   "fieldname": "section_break_vet",
+   "fieldtype": "Section Break",
+   "label": "Veterinarian Info"
+  },
+  {
+   "fieldname": "veterinarian",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Veterinarian"
+  },
+  {
+   "fieldname": "vet_contact",
+   "fieldtype": "Data",
+   "label": "Veterinarian Contact"
+  },
+  {
+   "fieldname": "section_break_notes",
+   "fieldtype": "Section Break",
+   "label": "Notes & Attachments"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Additional Notes"
+  },
+  {
+   "fieldname": "attachment",
+   "fieldtype": "Attach",
+   "label": "Attachment (Report / Prescription)"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Pet Adoption Booking",
+ "name": "Pet Medical History",
+ "naming_rule": "By script",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

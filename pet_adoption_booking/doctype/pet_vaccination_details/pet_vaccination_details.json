@@ -1,0 +1,71 @@
+{
+ "actions": [],
+ "autoname": "format:VAC-{YYYY}-{#####}",
+ "creation": "2024-01-01 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "vaccine_name",
+  "vaccination_date",
+  "next_due_date",
+  "veterinarian",
+  "administered_by",
+  "section_break_notes",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "vaccine_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Vaccine Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "vaccination_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Vaccination Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "next_due_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Next Due Date"
+  },
+  {
+   "fieldname": "veterinarian",
+   "fieldtype": "Data",
+   "label": "Veterinarian"
+  },
+  {
+   "fieldname": "administered_by",
+   "fieldtype": "Data",
+   "label": "Administered By"
+  },
+  {
+   "fieldname": "section_break_notes",
+   "fieldtype": "Section Break",
+   "label": "Additional Notes"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Pet Adoption Booking",
+ "name": "Pet Vaccination Details",
+ "naming_rule": "By script",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

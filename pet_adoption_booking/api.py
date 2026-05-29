@@ -16,8 +16,53 @@ def get_available_pets():
 
 @frappe.whitelist(allow_guest=True)
 def get_pet_details(pet_name):
-    """Get full details of a specific pet."""
+    """Get full details of a specific pet including child table data."""
     pet = frappe.get_doc("Pet", pet_name)
+    
+    # Get child table data
+    medical_history = []
+    if hasattr(pet, "medical_history") and pet.medical_history:
+        for row in pet.medical_history:
+            medical_history.append({
+                "date": str(row.date) if row.date else None,
+                "condition": row.condition,
+                "diagnosis": row.diagnosis,
+                "treatment": row.treatment,
+                "veterinarian": row.veterinarian,
+                "vet_contact": row.vet_contact,
+                "notes": row.notes,
+                "attachment": row.attachment,
+            })
+    
+    vaccination_details = []
+    if hasattr(pet, "vaccination_details") and pet.vaccination_details:
+        for row in pet.vaccination_details:
+            vaccination_details.append({
+                "vaccine_name": row.vaccine_name,
+                "vaccination_date": str(row.vaccination_date) if row.vaccination_date else None,
+                "next_due_date": str(row.next_due_date) if row.next_due_date else None,
+                "veterinarian": row.veterinarian,
+                "administered_by": row.administered_by,
+                "notes": row.notes,
+            })
+    
+    pet_images = []
+    if hasattr(pet, "pet_images_tab") and pet.pet_images_tab:
+        for row in pet.pet_images_tab:
+            pet_images.append({
+                "image": row.image,
+                "caption": row.caption,
+                "is_primary": row.is_primary,
+            })
+    
+    description_sections = []
+    if hasattr(pet, "pet_description_sections") and pet.pet_description_sections:
+        for row in pet.pet_description_sections:
+            description_sections.append({
+                "section_title": row.section_title,
+                "content": row.content,
+            })
+    
     return {
         "name": pet.name,
         "pet_name": pet.pet_name,
@@ -35,6 +80,10 @@ def get_pet_details(pet_name):
         "health_status": pet.health_status,
         "vaccinated": pet.vaccinated,
         "neutered_spayed": pet.neutered_spayed,
+        "medical_history": medical_history,
+        "vaccination_details": vaccination_details,
+        "pet_images": pet_images,
+        "description_sections": description_sections,
     }
 
 

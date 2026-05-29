@@ -25,7 +25,15 @@
     "registration_date",
     "sec_media",
     "image",
-    "description"
+    "description",
+    "sec_medical",
+    "medical_history",
+    "sec_vaccination",
+    "vaccination_details",
+    "sec_gallery",
+    "pet_images_tab",
+    "sec_descriptions",
+    "pet_description_sections"
   ],
   "fields": [
     {
@@ -155,6 +163,50 @@
       "fieldname": "description",
       "fieldtype": "Text Editor",
       "label": "Bio / Description"
+    },
+    {
+      "fieldname": "sec_medical",
+      "fieldtype": "Section Break",
+      "label": "Medical History"
+    },
+    {
+      "fieldname": "medical_history",
+      "fieldtype": "Table",
+      "label": "Medical History Records",
+      "options": "Pet Medical History"
+    },
+    {
+      "fieldname": "sec_vaccination",
+      "fieldtype": "Section Break",
+      "label": "Vaccination Details"
+    },
+    {
+      "fieldname": "vaccination_details",
+      "fieldtype": "Table",
+      "label": "Vaccination Records",
+      "options": "Pet Vaccination Details"
+    },
+    {
+      "fieldname": "sec_gallery",
+      "fieldtype": "Section Break",
+      "label": "Photo Gallery"
+    },
+    {
+      "fieldname": "pet_images_tab",
+      "fieldtype": "Table",
+      "label": "Pet Images",
+      "options": "Pet Images"
+    },
+    {
+      "fieldname": "sec_descriptions",
+      "fieldtype": "Section Break",
+      "label": "Description Sections"
+    },
+    {
+      "fieldname": "pet_description_sections",
+      "fieldtype": "Table",
+      "label": "Description Sections",
+      "options": "Pet Description Sections"
     }
   ],
   "image_field": "image",
