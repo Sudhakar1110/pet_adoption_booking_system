@@ -25,6 +25,14 @@ website_route_rules = [
 ]
 
 # ---------------------------------------------------
+# Website Menu Items (navbar)
+# ---------------------------------------------------
+website_menu_items = [
+    {"title": "Available Pets", "route": "/pets"},
+    {"title": "Book a Visit", "route": "/book-adoption"},
+]
+
+# ---------------------------------------------------
 # Website context data (available on all web pages)
 # ---------------------------------------------------
 def get_website_context(context):

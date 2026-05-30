@@ -110,7 +110,7 @@
                           <span class="badge bg-primary text-white ms-2 rounded-pill">{{ pet.breed }}</span>
                         </div>
                         <div class="text-md-end">
-                          <span class="fs-6 fw-bold text-primary">{{ frappe.utils.fmt_money(pet.adoption_fee) }}</span>
+                          <span class="fs-6 fw-bold text-primary">{% if pet.adoption_fee and pet.adoption_fee > 0 %}{{ frappe.utils.fmt_money(pet.adoption_fee) }}{% else %}Free{% endif %}</span>
                           <small class="text-muted d-block">Adoption fee</small>
                         </div>
                       </div>

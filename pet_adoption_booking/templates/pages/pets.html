@@ -64,7 +64,10 @@
       <h2 class="fw-bold text-dark mb-1">
         <i class="fa fa-paw text-primary me-2"></i>Available Pets
       </h2>
-      <p class="text-muted mb-0">{{ pets|length }} {% if pets|length == 1 %}pet{% else %}pets{% endif %} waiting for a home</p>
+      <p class="text-muted mb-0">
+        {% if pets %}{{ pets|length }} {% if pets|length == 1 %}pet{% else %}pets{% endif %} waiting for a home
+        {% else %}No pets listed yet — check back soon!{% endif %}
+      </p>
     </div>
     {% if not pets %}
     <div class="text-muted small">
@@ -165,7 +168,7 @@
             {% endif %}
             <div class="col-6">
               <span class="vrm-attribute-icon"><i class="fa fa-tag"></i></span>
-              <strong>Fee:</strong> {% if pet.adoption_fee %}{{ frappe.utils.fmt_money(pet.adoption_fee) }}{% else %}<span class="text-success">Free</span>{% endif %}
+              <strong>Fee:</strong> {% if pet.adoption_fee and pet.adoption_fee > 0 %}{{ frappe.utils.fmt_money(pet.adoption_fee) }}{% else %}<span class="text-success">Free</span>{% endif %}
             </div>
           </div>
 
